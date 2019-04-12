@@ -10,8 +10,6 @@ import { State, Action, Getter, Mutation } from 'vuex-class'
 import { MeetupState, Meetup } from '@/store/meetup/types'
 import MeetupList from '@/views/MeetupList.vue'
 import MyMeetup from '@/views/MyMeetup.vue'
-import axios from 'axios'
-const serverUrl = 'http://192.168.0.11:3000'
 const namespace: string = 'meetup'
 
 @Component({
@@ -23,12 +21,10 @@ const namespace: string = 'meetup'
 export default class Meetups extends Vue {
   @State('meetup') meetup: MeetupState
   @Action('loadMeetup', { namespace }) loadMeetup: any
-  loading = false
+  @Getter('loading') loading: boolean
 
   async created () {
-    this.loading = true
     await this.loadMeetup()
-    this.loading = false
   }
 }
 </script>

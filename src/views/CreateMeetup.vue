@@ -54,8 +54,7 @@ div.h100p
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator'
 import { State, Action, Mutation } from 'vuex-class'
-import axios from 'axios'
-const serverUrl = 'http://192.168.0.11:3000'
+import axios from '@/axios'
 
 @Component
 export default class CreateMeetup extends Vue {
@@ -64,11 +63,11 @@ export default class CreateMeetup extends Vue {
   @Mutation('showSuccess', { namespace: 'snackbar' }) showSuccess: any
 
   step = 1
-  name = '맛쵸킹 ㄱ'
-  place = 'BHC 치킨'
+  name = '치맥할 사람 구함'
+  place = '충만치킨'
   peopleLimit = 4
-  hour = '오후 6시'
-  hours = [11, 12, 13, 14, 15, 16, 17, 18, 19, 20].filter(i => i >= new Date().getHours()).map(this.getHours)
+  hour = '오후 8시'
+  hours = [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21].map(this.getHours) // .filter(i => i >= new Date().getHours())
   minute = '0분'
   minutes = [0, 10, 20, 30, 40, 50].map(i => `${i}분`)
 
@@ -113,7 +112,7 @@ export default class CreateMeetup extends Vue {
   }
 
   nextStep () {
-    this.step++
+    if (this.stepValidation) this.step++
   }
 
   async createMeetup () {
@@ -123,7 +122,7 @@ export default class CreateMeetup extends Vue {
       this.setMeetup({ name, place, peopleLimit, time })
       const { data: { success, message, meetup } } =
         await axios.post(
-          `${serverUrl}/meetups/create`,
+          '/meetups/create',
           { name, place, peopleLimit, time },
           { headers: { Authorization: `bearer ${this.$store.state.token}` } })
 

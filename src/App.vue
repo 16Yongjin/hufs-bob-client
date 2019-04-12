@@ -69,9 +69,9 @@ export default class App extends Vue {
   font-family: 'Godo';
   font-style: normal;
   font-weight: 400;
-  src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoM.woff2')
+  src: url('https://cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoM.woff2')
       format('woff2'),
-    url('//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoM.woff')
+    url('https://cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoM.woff')
       format('woff');
 }
 
@@ -79,9 +79,9 @@ export default class App extends Vue {
   font-family: 'Godo';
   font-style: normal;
   font-weight: 700;
-  src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoB.woff2')
+  src: url('https://cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoB.woff2')
       format('woff2'),
-    url('//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoB.woff')
+    url('https://cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoB.woff')
       format('woff');
 }
 .godo * {

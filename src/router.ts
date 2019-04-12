@@ -71,8 +71,6 @@ const authRequiredRoutes: { [index:string]: boolean } = {
 const authRequired = (name: string) => authRequiredRoutes[name]
 
 router.beforeEach((to, from, next) => {
-  console.log('token', typeof localStorage.getItem('token'))
-  console.log('token', store.state.token)
   if (store.state.token) {
     if (to.name === 'Login') next(false)
     else if (to.name === 'Landing') next({ name: 'Meetups' })

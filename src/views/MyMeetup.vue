@@ -7,9 +7,9 @@ v-container(fluid fill-height)
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
-import { State, Action, Getter, Mutation } from 'vuex-class'
-import { MeetupState, Meetup } from '@/store/meetup/types'
+import { Component, Vue } from 'vue-property-decorator'
+import { State, Action } from 'vuex-class'
+import { MeetupState } from '@/store/meetup/types'
 import MyMeetupCard from '@/components/MyMeetupCard.vue'
 
 const namespace: string = 'meetup'
@@ -25,6 +25,3 @@ export default class MeetupList extends Vue {
 }
 </script>
 
-<style scoped>
-
-</style>

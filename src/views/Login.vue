@@ -27,10 +27,7 @@ v-container.loginOverlay(fluid fill-height)
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import { Mutation } from 'vuex-class'
-import axios from 'axios'
-import socketio from 'socket.io-client'
-
-const serverUrl = 'http://192.168.0.11:3000'
+import axios from '@/axios'
 
 @Component
 export default class PlaceList extends Vue {
@@ -51,7 +48,7 @@ export default class PlaceList extends Vue {
     if (!this.valid) return
     try {
       const { id, password } = this
-      const { data: { success, token, message, signUpRequired } } = await axios.post(`${serverUrl}/login`, { id, password })
+      const { data: { success, token, message, signUpRequired } } = await axios.post('/login', { id, password })
 
       if (success) {
         this.setToken(token);
@@ -81,7 +78,7 @@ export default class PlaceList extends Vue {
     try {
       const { id, password } = this
       const { data: { success, token, message } } =
-        await axios.post(`${serverUrl}/signup`, { id, password })
+        await axios.post('/signup', { id, password })
 
       if (success) {
         this.setToken(token);

@@ -4,10 +4,10 @@ v-container.pa-0(fluid)
     v-flex
       v-list(two-line)
         template(v-for="meetup, index in meetup.meetups")
-          v-list-tile(avatar ripple :key="meetup._id" @click="join(meetup._id)" :disabled="!meetup.available")
+          v-list-tile(avatar ripple :key="meetup._id" @click="joinMeetup(meetup._id)" :disabled="!meetup.available")
             v-list-tile-content
               v-list-tile-title {{ meetup.name }}
-              v-list-tile-sub-title.text--primary {{ meetup.place }}
+              v-list-tile-sub-title {{ meetup.place }}
               v-list-tile-sub-title {{ meetup.people }} / {{ meetup.peopleLimit }}
             v-list-tile-action
               v-list-tile-action-text {{ meetup.time }}
@@ -20,11 +20,6 @@ v-container.pa-0(fluid)
             v-list-tile-sub-title 가고 싶은 맛집이 없나요?
             v-list-tile-title 모임을 만드세요!
         v-divider
-      //- v-card
-        v-card-title.title(v-text="meetup.name")
-        v-card-text
-          span(v-text="meetup.place")
-          div
 </template>
 
 <script lang="ts">
@@ -37,10 +32,25 @@ const namespace: string = 'meetup'
 export default class MeetupList extends Vue {
   @State('meetup') meetup: MeetupState
   @Action('joinMeetup', { namespace }) joinMeetup: any
+  @Mutation('UPDATE_MEETUPS', { namespace }) updateMeetups: any
+  @Mutation('REMOVE_MEETUP', { namespace }) removeMeetup: any
 
-  join (meetupId: string) {
-    this.joinMeetup(meetupId)
-      .then(() => this.$router.push({ name: 'Chat' }))
+  created () {
+    console.log('attach event');
+    (this.$options as any).sockets.UPDATE_MEETUP_LIST = (data: Meetup) => {
+      console.log('UPDATE_MEETUP_LIST', data)
+      this.updateMeetups(data)
+    }
+    (this.$options as any).sockets.REMOVE_MEETUP = (data: Meetup) => {
+      console.log('REMOVE_MEETUP', data)
+      this.removeMeetup(data)
+    }
+  }
+
+  destroyed () {
+    console.log('dettach event')
+    delete (this.$options as any).sockets.UPDATE_MEETUP_LIST
+    delete (this.$options as any).sockets.ADD_MEETUP_LIST
   }
 }
 </script>

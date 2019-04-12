@@ -13,6 +13,7 @@ const store: StoreOptions<RootState> = {
   state: {
     token: localStorage.getItem('token'),
     name: '',
+    loading: false,
     version: '1.0.0'
   },
   modules: {
@@ -33,6 +34,9 @@ const store: StoreOptions<RootState> = {
     },
     SET_NAME (state, payload: string) {
       state.name = payload
+    },
+    SET_LOADING (state, payload: boolean) {
+      state.loading = payload
     }
   },
   getters: {
@@ -41,6 +45,9 @@ const store: StoreOptions<RootState> = {
     },
     name (state) {
       return state.name
+    },
+    loading (state) {
+      return state.loading
     }
   }
 }
